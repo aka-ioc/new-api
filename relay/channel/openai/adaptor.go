@@ -49,8 +49,8 @@ func (a *Adaptor) GetRequestURL(info *relaycommon.RelayInfo) (string, error) {
 	case common.ChannelTypeCustom:
 		url := info.BaseUrl
 		if strings.HasPrefix(url, "https://models.inference.ai.azure.com") {
-			url = strings.TrimPrefix(url, "/v1")
-			if info.RelayMode == constant.RelayModeCompletions {
+			url = strings.Replace(url, "/v1", "", -1)
+			if info.RelayMode == constant.RelayModeChatCompletions {
 				url = fmt.Sprintf("%s/%s", url, "chat/completions")
 			} else if info.RelayMode == constant.RelayModeEmbeddings {
 				url = fmt.Sprintf("%s/%s", url, "embeddings")
